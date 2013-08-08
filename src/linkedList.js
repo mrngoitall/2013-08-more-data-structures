@@ -14,7 +14,7 @@ var makeLinkedList = function(){
     }
   };
 
-  list.addToTail = function(){
+  list.addToTail = function(data){
     if (list.head === null) {
       list.head = makeNode(data);
       list.tail = list.head;
@@ -29,9 +29,9 @@ var makeLinkedList = function(){
   list.removeHead = function(){
     if (list.head !== null) {
       var tempNode = list.head;
-      list.head.next.prev = null;
+      if (list.head.next) list.head.next.prev = null;
       list.head = list.head.next;
-      return tempNode;
+      return tempNode.value;
     }
   };
 
