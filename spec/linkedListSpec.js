@@ -20,6 +20,11 @@ describe("linkedList", function() {
 
   it("should be able to add a value to tail", function() {
     linkedList.addToTail('a');
+    expect(linkedList.tail.value).toEqual('a');
+  });
+
+  it("should be able to remove from head", function() {
+    linkedList.addToTail('a');
     expect(linkedList.removeHead()).toEqual('a');
   });
 
@@ -48,13 +53,18 @@ describe("linkedList", function() {
     expect(linkedList.contains('d')).toEqual(false);
   });
 
-  it("should implement the extra credit methods addToHead and removeTail", function() {
+  it("should be able to add a value to head", function() {
     linkedList.addToHead('a');
     linkedList.addToHead('b');
     linkedList.addToHead('c');
+    expect(linkedList.head.value).toEqual('c');
+  });
 
+  it("should be able to remove from tail", function() {
+    linkedList.addToHead('a');
+    linkedList.addToHead('b');
+    linkedList.addToHead('c');
     expect(linkedList.removeTail()).toEqual('a');
-    expect(linkedList.removeTail()).toEqual('b');
   });
 
 });
