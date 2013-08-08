@@ -9,8 +9,10 @@ var makeLinkedList = function(){
       list.head = makeNode(data);
       list.tail = list.head;
     } else {
-      list.head = makeNode(data);
-
+      var tempNode = makeNode(data);
+      tempNode.next = list.head;
+      list.head.prev = tempNode;
+      list.head = tempNode;
     }
   };
 
