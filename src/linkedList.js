@@ -39,7 +39,18 @@ var makeLinkedList = function(){
 
   };
 
-  list.contains = function(){
+  list.contains = function(data){
+    var doesContain = false;
+    var listCrawler = function(node){
+      if (node.value === data) {
+        doesContain = true;
+      }
+      if (node.next !== null) {
+        listCrawler(node.next);
+      }
+    };
+    listCrawler(list.head);
+    return doesContain;
   };
 
   return list;
