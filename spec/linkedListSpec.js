@@ -48,4 +48,13 @@ describe("linkedList", function() {
     expect(linkedList.contains('d')).toEqual(false);
   });
 
+  it("should implement the extra credit methods addToHead and removeTail", function() {
+    linkedList.addToHead('a');
+    linkedList.addToHead('b');
+    linkedList.addToHead('c');
+
+    expect(linkedList.removeTail()).toEqual('a');
+    expect(linkedList.removeTail()).toEqual('b');
+  });
+
 });
