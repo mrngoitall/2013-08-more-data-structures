@@ -38,7 +38,12 @@ var makeLinkedList = function(){
   };
 
   list.removeTail = function(){
-
+    if (list.tail !== null) {
+      var tempNode = list.tail;
+      if (list.tail.prev) list.tail.prev.next = null;
+      list.tail = list.tail.prev;
+      return tempNode.value;
+    }
   };
 
   list.contains = function(data){
