@@ -23,11 +23,16 @@ var makeLinkedList = function(){
       tempNode.prev = list.tail;
       list.tail.next = tempNode;
       list.tail = tempNode;
-      list.tail.prev = 
     }
   };
 
   list.removeHead = function(){
+    if (list.head !== null) {
+      var tempNode = list.head;
+      list.head.next.prev = null;
+      list.head = list.head.next;
+      return tempNode;
+    }
   };
 
   list.removeTail = function(){
