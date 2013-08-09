@@ -1,5 +1,6 @@
 var HashTable = function(){
-  this._limit = 10;
+  this._limit = 50;
+  this._size = 0;
 
   // Use a limited array to store inserted elements.
   // It'll keep you from using too much space. Usage:
@@ -12,15 +13,19 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
-HashTable.prototype.insert = function(k, v){
-  var i = getIndexBelowMaxForKey(k, this._limit);
-  console.log(i);
-  var thisBucket = this._storage.get(i);
+HashTable.prototype.insert = function(k, v, limit, storage){
+  limit = limit || this._limit;
+  newStorage = storage || this._storage;
+  var i = getIndexBelowMaxForKey(k, limit);
+  var thisBucket = newStorage.get(i);
   var updated = false;
   if (!thisBucket) {
     thisBucket = [];
     thisBucket[0] = k;
     thisBucket[1] = v;
+    if (!storage) {
+      this._size++;
+    }
   } else {
     for (var x = 0; x < thisBucket.length; x += 2) {
       if (thisBucket[x] === k) {
@@ -33,17 +38,21 @@ HashTable.prototype.insert = function(k, v){
        thisBucket.push(v);
      }
   }
-  this._storage.set(i, thisBucket);
- // debugger;
+  newStorage.set(i, thisBucket);
+  if (this._size > (limit * 0.75)) {
+    this.reindex(limit * 2);
+  }
 };
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var thisBucket = this._storage.get(i);
   var value;
-  for (var x = 0; x < thisBucket.length; x += 2) {
-    if (thisBucket[x] === k) {
-      value = thisBucket[x + 1];
+  if (thisBucket) {
+    for (var x = 0; x < thisBucket.length; x += 2) {
+      if (thisBucket[x] === k) {
+        value = thisBucket[x + 1];
+      }
     }
   }
   return value;
@@ -52,13 +61,32 @@ HashTable.prototype.retrieve = function(k){
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var thisBucket = this._storage.get(i);
-  for (var x = 0; x < thisBucket.length; x += 2) {
-    if (thisBucket[x] === k) {
-      thisBucket.splice(x, 2);
-    }
+    for (var x = 0; x < thisBucket.length; x += 2) {
+      if (thisBucket[x] === k) {
+        thisBucket.splice(x, 2);
+      }
   }
-
+  if (thisBucket.length === 0) {
+    this._size--;
+  }
   this._storage.set(i, thisBucket);
+  if (this._size < (this._limit * 0.25)) {
+    this.reindex(this._limit / 2);
+  }
+};
+
+HashTable.prototype.reindex = function(newStorageLimit) {
+  var htable = this;
+  var newHTable = makeLimitedArray(newStorageLimit);
+  this._storage.each(function(thisBucket, key, collection) {
+    if (thisBucket) {
+      for (var x = 0; x < thisBucket.length; x += 2) {
+        htable.insert(thisBucket[x],thisBucket[x+1],newStorageLimit,newHTable);
+      }
+    }
+  });
+  this._limit = newStorageLimit;
+  this._storage = newHTable;
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js

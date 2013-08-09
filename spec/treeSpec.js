@@ -86,4 +86,23 @@ describe("tree", function() {
     expect(newTree.parent).toEqual(null);
     expect(newTree.children.length).toEqual(3);
   });
+
+  it("should be able to run a function on every node in the tree with traverse()", function() {
+    var result = 0;
+    var sum = function(value) {
+      result += value;
+    };
+
+    tree.addChild(1);
+    tree.addChild(2);
+    tree.addChild(3);
+    tree.children[1].addChild(4);
+    tree.children[1].addChild(5);
+    tree.children[1].addChild(6);
+    tree.children[1].children[1].addChild(7);
+    tree.children[1].children[1].addChild(8);
+    tree.traverse(sum);
+    
+    expect(result).toEqual(36);
+  });
 });
