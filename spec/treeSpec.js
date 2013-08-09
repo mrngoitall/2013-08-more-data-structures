@@ -71,4 +71,20 @@ describe("tree", function() {
     expect(tree.children[0].parent).toEqual(tree);
   });
 
+  it("should be able to split trees using removeFromParent()", function() {
+    tree.addChild('a');
+    tree.addChild('b');
+    tree.addChild('c');
+    tree.children[1].addChild('d');
+    tree.children[1].addChild('e');
+    tree.children[1].addChild('f');
+    tree.children[1].children[1].addChild('g');
+    tree.children[1].children[1].addChild('h');
+    var newTree = tree.children[1].removeFromParent();
+
+    expect(tree.children.length).toEqual(2);
+    expect(newTree.parent).toEqual(null);
+    expect(newTree.children.length).toEqual(3);
+  }
+
 });
