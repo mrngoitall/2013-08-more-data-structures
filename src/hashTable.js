@@ -51,7 +51,14 @@ HashTable.prototype.retrieve = function(k){
 
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  this._storage.set(i, undefined);
+  var thisBucket = this._storage.get(i);
+  for (var x = 0; x < thisBucket.length; x += 2) {
+    if (thisBucket[x] === k) {
+      thisBucket.splice(x, 2);
+    }
+  }
+
+  this._storage.set(i, thisBucket);
 };
 
 // NOTE: For this code to work, you will NEED the code from hashTableHelpers.js
