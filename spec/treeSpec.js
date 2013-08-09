@@ -12,4 +12,28 @@ describe("tree", function() {
   });
 
   // Add more tests here to test the functionality of tree.
+
+  it("should be able to add a child to the tree", function() {
+    tree.addChild('a');
+    expect(tree.children[0].value).toEqual('a');
+  });
+
+  it("should be able to add multiple children to the tree", function() {
+    tree.addChild('a');
+    tree.addChild('b');
+    tree.addChild('c');
+
+    expect(tree.children[0].value).toEqual('a');
+    expect(tree.children[1].value).toEqual('b');
+    expect(tree.children[2].value).toEqual('c');
+  });
+
+  it("should be able to find a value in trees using contains()", function() {
+    tree.addChild('a');
+    tree.addChild('b');
+    tree.addChild('c');
+
+    expect(tree.contains('b')).toEqual(true);
+  });
+
 });
