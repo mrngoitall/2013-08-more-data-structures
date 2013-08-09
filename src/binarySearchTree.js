@@ -8,7 +8,7 @@ var makeBinarySearchTree = function(){
     newTree[key] = treeMethods[key];
   }
 
-  return newTree;
+  return newBinarySearchTree;
 };
 
 var binarySearchTreeMethods = {};
