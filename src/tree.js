@@ -1,7 +1,7 @@
 var makeTree = function(){
   var newTree = {};
-  newTree.value = undefined;
-  newTree.parent = undefined;
+  newTree.value = null;
+  newTree.parent = null;
   newTree.children = [];
 
   for (var key in treeMethods) {
