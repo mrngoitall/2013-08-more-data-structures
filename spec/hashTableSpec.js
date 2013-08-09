@@ -20,5 +20,11 @@ describe("hashTable", function() {
     expect(hashTable.retrieve(v2)).toEqual(v2);
   });
 
-  // add more tests!
+  it("should be able to insert and retrieve values", function() {
+    hashTable.insert('key1', 'value1');
+    hashTable.insert('key2', 'value2');
+    expect(hashTable.retrieve('key2')).toEqual('value2');
+    expect(hashTable.retrieve('key1')).toEqual('value1');
+  });
+
 });
