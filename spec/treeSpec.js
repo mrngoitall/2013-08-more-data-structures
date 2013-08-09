@@ -36,4 +36,33 @@ describe("tree", function() {
     expect(tree.contains('b')).toEqual(true);
   });
 
+  it("should be able to handle nested subtrees", function() {
+    tree.addChild('a');
+    tree.addChild('b');
+    tree.addChild('c');
+    tree.children[1].addChild('d');
+    tree.children[1].addChild('e');
+    tree.children[1].addChild('f');
+
+
+    expect(tree.children[1].children[0].value).toEqual('d');
+    expect(tree.children[1].children[1].value).toEqual('e');
+    expect(tree.children[1].children[2].value).toEqual('f');
+
+  });
+
+    it("should be able to find within nested subtrees", function() {
+    tree.addChild('a');
+    tree.addChild('b');
+    tree.addChild('c');
+    tree.children[1].addChild('d');
+    tree.children[1].addChild('e');
+    tree.children[1].addChild('f');
+
+
+    expect(tree.contains('b')).toEqual(true);
+    expect(tree.children[1].contains('e')).toEqual(true);
+    expect(tree.contains('g')).toEqual(false);
+
+  });
 });
