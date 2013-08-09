@@ -5,8 +5,8 @@ describe("binarySearchTree", function() {
     binarySearchTree = makeBinarySearchTree();
   });
 
-  it("should have methods named 'insert', 'contains', and 'depthFirstLog", function() {
-    expect(binarySearchTree.children).toEqual(jasmine.any(Function));
+  it("should have methods named 'insert', 'contains', and 'depthFirstLog'", function() {
+    expect(binarySearchTree.insert).toEqual(jasmine.any(Function));
     expect(binarySearchTree.contains).toEqual(jasmine.any(Function));
     expect(binarySearchTree.depthFirstLog).toEqual(jasmine.any(Function));
   });
@@ -65,19 +65,19 @@ describe("binarySearchTree", function() {
 
   });
 
-  it("should be able to run a function on every node in the tree with traverse()", function() {
+  it("should be able to run a function on every node in the tree with depthFirstLog()", function() {
     var result = 0;
     var sum = function(value) {
       result += value;
     };
 
-    binarySearchTree.insert('5');
-    binarySearchTree.insert('2');
-    binarySearchTree.insert('6');
-    binarySearchTree.insert('4');
-    binarySearchTree.insert('1');
-    binarySearchTree.insert('9');
-    binarySearchTree.traverse(sum);
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(9);
+    binarySearchTree.depthFirstLog(sum);
     expect(result).toEqual(27);
   });
 
