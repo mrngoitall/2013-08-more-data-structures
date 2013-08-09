@@ -44,3 +44,16 @@ treeMethods.removeFromParent = function() {
   this.parent = null;
   return this;
 };
+
+treeMethods.traverse = function(callback) {
+  var treeCrawler = function(node){
+    callback(node.value);
+
+    if (node.children.length) {
+      for (var i = 0; i < node.children.length; i++){
+        treeCrawler(node.children[i]);
+      }
+    }
+  };
+  treeCrawler(this);
+};
