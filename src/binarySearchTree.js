@@ -17,7 +17,7 @@ binarySearchTreeMethods.insert = function(value) {
   if (!this.value) {
     this.value = value;
   } else {
-    var newNode = makeBinarySearchTree;
+    var newNode = makeBinarySearchTree();
     newNode.value = value;
     var binaryTreeCrawler = function(node) {
       if (newNode.value < node.value) {
@@ -39,7 +39,18 @@ binarySearchTreeMethods.insert = function(value) {
 };
 
 binarySearchTreeMethods.contains = function(value) {
-  
+  var binaryTreeCrawler = function(node) {
+    if (node.value === value) {
+      return true;
+    } else if (node.value < value && node.left) {
+      return binaryTreeCrawler(node.left);
+    } else if (node.value > value && node.right) {
+      return binaryTreeCrawler(node.right);
+    } else {
+      return false;
+    }
+  };
+  return binaryTreeCrawler(this);
 };
 
 binarySearchTreeMethods.depthFirstLog = function(callback) {
