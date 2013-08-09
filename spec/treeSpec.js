@@ -51,7 +51,7 @@ describe("tree", function() {
 
   });
 
-    it("should be able to find within nested subtrees", function() {
+  it("should be able to find within nested subtrees", function() {
     tree.addChild('a');
     tree.addChild('b');
     tree.addChild('c');
@@ -65,4 +65,10 @@ describe("tree", function() {
     expect(tree.contains('g')).toEqual(false);
 
   });
+
+  it("should give parent attribute to its children", function() {
+    tree.addChild('a');
+    expect(tree.children[0].parent).toEqual(tree);
+  });
+
 });
