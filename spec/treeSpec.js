@@ -85,6 +85,5 @@ describe("tree", function() {
     expect(tree.children.length).toEqual(2);
     expect(newTree.parent).toEqual(null);
     expect(newTree.children.length).toEqual(3);
-  }
-
+  });
 });
