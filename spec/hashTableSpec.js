@@ -27,4 +27,11 @@ describe("hashTable", function() {
     expect(hashTable.retrieve('key1')).toEqual('value1');
   });
 
+  it("should be able to remove values", function() {
+    hashTable.insert('key1', 'value1');
+    hashTable.insert('key2', 'value2');
+    hashTable.remove('key1');
+    expect(hashTable.retrieve('key1')).toEqual(undefined);
+    expect(hashTable.retrieve('key2')).toEqual('value2');
+  });
 });
