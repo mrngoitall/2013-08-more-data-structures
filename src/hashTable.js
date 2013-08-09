@@ -17,7 +17,6 @@ HashTable.prototype.insert = function(k, v, limit, storage){
   limit = limit || this._limit;
   newStorage = storage || this._storage;
   var i = getIndexBelowMaxForKey(k, limit);
-  console.log(i);
   var thisBucket = newStorage.get(i);
   var updated = false;
   if (!thisBucket) {
@@ -43,7 +42,6 @@ HashTable.prototype.insert = function(k, v, limit, storage){
   if (this._size > (limit * 0.75)) {
     this.reindex(limit * 2);
   }
-  if (v === 167) debugger;
 };
 
 HashTable.prototype.retrieve = function(k){
@@ -83,9 +81,7 @@ HashTable.prototype.reindex = function(newStorageLimit) {
   this._storage.each(function(thisBucket, key, collection) {
     if (thisBucket) {
       for (var x = 0; x < thisBucket.length; x += 2) {
-        console.log(htable);
         htable.insert(thisBucket[x],thisBucket[x+1],newStorageLimit,newHTable);
-        htable.remove(thisBucket[x]);
       }
     }
   });
