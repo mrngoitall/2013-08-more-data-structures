@@ -54,5 +54,10 @@ binarySearchTreeMethods.contains = function(value) {
 };
 
 binarySearchTreeMethods.depthFirstLog = function(callback) {
-  
+  var binaryTreeCrawler = function(node) {
+    callback(node.value);
+    node.left && binaryTreeCrawler(node.left);
+    node.right && binaryTreeCrawler(node.right);
+  };
+  binaryTreeCrawler(this);
 };
