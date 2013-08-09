@@ -34,4 +34,13 @@ describe("hashTable", function() {
     expect(hashTable.retrieve('key1')).toEqual(undefined);
     expect(hashTable.retrieve('key2')).toEqual('value2');
   });
+
+  it("should be able to handle large numbers of keys", function() {
+    for (var i = 0; i < 1000; i++) {
+      hashTable.insert('a'+i, i);
+    }
+    for (var j = 0; j < 1000; j++) {
+      expect(hashTable.retrieve('a'+j)).toEqual(j);
+    }
+  });
 });
