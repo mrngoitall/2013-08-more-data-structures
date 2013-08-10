@@ -66,9 +66,9 @@ describe("binarySearchTree", function() {
   });
 
   it("should be able to run a function on every node in the tree with depthFirstLog()", function() {
-    var result = 0;
-    var sum = function(value) {
-      result += value;
+    var result = [];
+    var treeCrawler = function(value) {
+      result.push(value);
     };
 
     binarySearchTree.insert(5);
@@ -77,8 +77,24 @@ describe("binarySearchTree", function() {
     binarySearchTree.insert(4);
     binarySearchTree.insert(1);
     binarySearchTree.insert(9);
-    binarySearchTree.depthFirstLog(sum);
-    expect(result).toEqual(27);
+    binarySearchTree.depthFirstLog(treeCrawler);
+    expect(result).toEqual([5,2,1,4,6,9]);
+  });
+
+  it("should be able to run a function on every node in the tree with breadthFirstLog()", function() {
+    var result = [];
+    var treeCrawler = function(value) {
+      result.push(value);
+    };
+
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(4);
+    binarySearchTree.insert(1);
+    binarySearchTree.insert(9);
+    binarySearchTree.breadthFirstLog(treeCrawler);
+    expect(result).toEqual([5,2,6,1,4,9]);
   });
 
 });
