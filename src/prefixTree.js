@@ -48,7 +48,7 @@ prefixTreeMethods.findWord = function(numberString) {
     if (numbers.length) {
       return node ? treeCrawler(node.children[numbers.shift()]) : makePrefixTree();
     }
-    return node;
+    return node || makePrefixTree();
   };
 
   var queue = [treeCrawler(this)];
@@ -57,7 +57,7 @@ prefixTreeMethods.findWord = function(numberString) {
   while (queue.length && results.length < 5) {
     var node = queue.shift();
     var resultPos = 0;
-    if (node.children[1]) {
+    if (node && node.children[1]) {
       while (results.length < 5 && resultPos < node.children[1].words.length) {
         results.push(node.children[1].words[resultPos]);
         resultPos++;
