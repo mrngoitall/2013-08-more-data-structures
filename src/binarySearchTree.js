@@ -72,3 +72,23 @@ binarySearchTreeMethods.breadthFirstLog = function(callback) {
     node.right && queue.push(node.right);
   }
 };
+
+binarySearchTreeMethods.rebalance = function() {
+  // Convert the tree to an array
+  var treeArray = [];
+  var pushIntoArray = function(value) {
+    treeArray.push(value);
+  };
+  this.breadthFirstLog(pushIntoArray);
+  // Sort the array and convert it back into a tree
+  treeArray.sort();
+  var midpoint = Math.ceil(treeArray.length/2);
+  this.left = null;
+  this.right = null;
+  this.value = null;
+  this.insert(treeArray[midpoint]);
+  for (var i = 0; midpoint-i > 0 || midpoint+i < treeArray.length; i++) {
+    midpoint-i > 0 && this.insert(treeArray[midpoint-i]);
+    midpoint+i < treeArray.length && this.insert(treeArray[midpoint+i]);
+  }
+};
