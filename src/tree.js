@@ -20,26 +20,6 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(value){
-  /* // Original solution
-  var doesContain = false;
-  var treeCrawler = function(node){
-    if (node.value === value) {
-      doesContain = true;
-    }
-    if (node.children.length) {
-      for (var i = 0; i < node.children.length; i++){
-        treeCrawler(node.children[i]);
-      }
-    }
-  };
-  treeCrawler(this);
-  return doesContain; */
-  /* // Using each
-  var childrenContainValue = false;
-  _(this.children).each(function(child) {
-    childrenContainValue = childrenContainValue || child.contains(value);
-  }
-  return this.value === value || childrenContainValue; */
   // Using reduce
   return _(this.children).reduce(function(childrenContainValue, child){
     return childrenContainValue || child.contains(value);
