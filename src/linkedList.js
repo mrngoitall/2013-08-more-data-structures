@@ -46,18 +46,8 @@ var makeLinkedList = function(){
     }
   };
 
-  list.contains = function(data){
-    var doesContain = false;
-    var listCrawler = function(node){
-      if (node.value === data) {
-        doesContain = true;
-      }
-      if (node.next !== null) {
-        listCrawler(node.next);
-      }
-    };
-    listCrawler(list.head);
-    return doesContain;
+  list.contains = function(value){
+    return (this.head && this.head.contains(value)) || false;
   };
 
   return list;
@@ -68,5 +58,8 @@ var makeNode = function(value){
   node.value = value;
   node.next = null;
   node.prev = null;
+  node.contains = function(value) {
+    return this.value === value || this.next && this.next.contains(value);
+  }
   return node;
 };

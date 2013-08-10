@@ -19,20 +19,11 @@ treeMethods.addChild = function(value){
   this.children.push(tempTree);
 };
 
-treeMethods.contains = function(data){
-  var doesContain = false;
-  var treeCrawler = function(node){
-    if (node.value === data) {
-      doesContain = true;
-    }
-    if (node.children.length) {
-      for (var i = 0; i < node.children.length; i++){
-        treeCrawler(node.children[i]);
-      }
-    }
-  };
-  treeCrawler(this);
-  return doesContain;
+treeMethods.contains = function(value){
+  // Using reduce
+  return _(this.children).reduce(function(childrenContainValue, child){
+    return childrenContainValue || child.contains(value);
+  }, this.value === value);
 };
 
 treeMethods.removeFromParent = function() {
