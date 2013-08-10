@@ -46,7 +46,7 @@ prefixTreeMethods.findWord = function(numberString) {
   var numbers = numberString.split('');
   var treeCrawler = function(node) {
     if (numbers.length) {
-      return treeCrawler(node.children[numbers.shift()]);
+      return node ? treeCrawler(node.children[numbers.shift()]) : makePrefixTree();
     }
     return node;
   };
