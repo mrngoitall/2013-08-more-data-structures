@@ -50,7 +50,24 @@ prefixTreeMethods.findWord = function(numberString) {
     }
     return node;
   };
-  return treeCrawler(this).children[1].words;
+
+  var queue = [treeCrawler(this)];
+  var results = [];
+
+  while (queue.length && results.length < 5) {
+    var node = queue.shift();
+    var resultPos = 0;
+    if (node.children[1]) {
+      while (results.length < 5 && resultPos < node.children[1].words.length) {
+        results.push(node.children[1].words[resultPos]);
+        resultPos++;
+      }
+    }
+    for (var i = 0; i < node.children.length; i++) {
+      node.children[i] && queue.push(node.children[i]);
+    }
+  }
+  return results;
 };
 
 prefixTreeMethods.contains = function(data){
