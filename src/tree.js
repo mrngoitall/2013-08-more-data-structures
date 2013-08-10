@@ -37,14 +37,8 @@ treeMethods.removeFromParent = function() {
 };
 
 treeMethods.traverse = function(callback) {
-  var treeCrawler = function(node){
-    callback(node.value);
-
-    if (node.children.length) {
-      for (var i = 0; i < node.children.length; i++){
-        treeCrawler(node.children[i]);
-      }
-    }
-  };
-  treeCrawler(this);
+  callback(this.value);
+  _(this.children).each(function(child) {
+    child && child.traverse(callback);
+  });
 };
