@@ -31,7 +31,7 @@ prefixTreeMethods.addChild = function(number){
 };
 
 prefixTreeMethods.addWord = function(word, fullWord){
-  fullWord = fullWord || word;
+  fullWord = fullWord || word.toLowerCase();
   if (word) {
     var digit = this.alphabetMap[word.charAt(0).toLowerCase()];
     if (!this.children[digit]) this.children[digit] = this.addChild(digit);
