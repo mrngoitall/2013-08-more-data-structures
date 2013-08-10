@@ -27,17 +27,18 @@ prefixTreeMethods.addChild = function(number){
   var tempTree = makePrefixTree();
   tempTree.number = number;
   tempTree.parent = this;
-  this.children.push(tempTree);
+  return tempTree;
 };
 
 prefixTreeMethods.addWord = function(word, fullWord){
+  fullWord = fullWord || word;
   if (word) {
     var digit = this.alphabetMap[word.charAt(0)];
-    if (!this.children[digit]) this.addChild(digit);
+    if (!this.children[digit]) this.children[digit] = this.addChild(digit);
     this.children[digit].addWord(word.substring(1), fullWord);
   } else {
-    if (!this.children['$']) this.addChild('$');
-    this.children['$'].words.push(fullWord);
+    if (!this.children[1]) this.children[1] = this.addChild(1);
+    this.children[1].words.push(fullWord);
   }
 };
 
