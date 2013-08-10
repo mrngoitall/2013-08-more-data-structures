@@ -1,6 +1,6 @@
 var makePrefixTree = function(){
   var newPrefixTree = {};
-  var alphabetMap = {
+  newPrefixTree.alphabetMap = {
     'a':2, 'b':2, 'c':2,
     'd':3, 'e':3, 'f':3,
     'g':4, 'h':4, 'i':4,
@@ -24,17 +24,21 @@ var makePrefixTree = function(){
 var prefixTreeMethods = {};
 
 prefixTreeMethods.addChild = function(number){
-  tempTree = makePrefixTree();
+  var tempTree = makePrefixTree();
   tempTree.number = number;
   tempTree.parent = this;
   this.children.push(tempTree);
 };
 
-prefixTreeMethods.addWord = function(word){
-  tempTree = makePrefixTree();
-  tempTree.number = number;
-  tempTree.parent = this;
-  this.children.push(tempTree);
+prefixTreeMethods.addWord = function(word, fullWord){
+  if (word) {
+    var digit = this.alphabetMap[word.charAt(0)];
+    if (!this.children[digit]) this.addChild(digit);
+    this.children[digit].addWord(word.substring(1), fullWord);
+  } else {
+    if (!this.children['$']) this.addChild('$');
+    this.children['$'].words.push(fullWord);
+  }
 };
 
 prefixTreeMethods.contains = function(data){
