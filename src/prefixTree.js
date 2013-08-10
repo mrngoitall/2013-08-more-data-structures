@@ -42,6 +42,17 @@ prefixTreeMethods.addWord = function(word, fullWord){
   }
 };
 
+prefixTreeMethods.findWord = function(numberString) {
+  var numbers = numberString.split('');
+  var treeCrawler = function(node) {
+    if (numbers.length) {
+      return treeCrawler(node.children[numbers.shift()]);
+    }
+    return node;
+  };
+  return treeCrawler(this).children[1].words;
+};
+
 prefixTreeMethods.contains = function(data){
   var doesContain = false;
   var treeCrawler = function(node){
