@@ -53,6 +53,9 @@ binarySearchTreeMethods.insert = function(value) {
   console.log('max: '+ maxDepth);
   var minDepth = binaryTreeDepthCrawler(this, 'min');
   console.log('min: '+ minDepth);
+  if (maxDepth > (minDepth*2)) {
+    this.rebalance();
+  }
 };
 
 binarySearchTreeMethods.contains = function(value) {
