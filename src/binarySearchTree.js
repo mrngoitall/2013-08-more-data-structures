@@ -61,3 +61,14 @@ binarySearchTreeMethods.depthFirstLog = function(callback) {
   };
   binaryTreeCrawler(this);
 };
+
+binarySearchTreeMethods.breadthFirstLog = function(callback) {
+  var queue = [this];
+  while(queue.length) {
+ //   debugger;
+    node = queue.shift();
+    callback(node.value);
+    node.left && queue.push(node.left);
+    node.right && queue.push(node.right);
+  }
+};
