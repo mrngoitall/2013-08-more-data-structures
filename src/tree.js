@@ -19,10 +19,11 @@ treeMethods.addChild = function(value){
   this.children.push(tempTree);
 };
 
-treeMethods.contains = function(data){
+treeMethods.contains = function(value){
+  /* // Original solution
   var doesContain = false;
   var treeCrawler = function(node){
-    if (node.value === data) {
+    if (node.value === value) {
       doesContain = true;
     }
     if (node.children.length) {
@@ -32,7 +33,17 @@ treeMethods.contains = function(data){
     }
   };
   treeCrawler(this);
-  return doesContain;
+  return doesContain; */
+  /* // Using each
+  var childrenContainValue = false;
+  _(this.children).each(function(child) {
+    childrenContainValue = childrenContainValue || child.contains(value);
+  }
+  return this.value === value || childrenContainValue; */
+  // Using reduce
+  return _(this.children).reduce(function(childrenContainValue, child){
+    return childrenContainValue || child.contains(value);
+  }, this.value === value);
 };
 
 treeMethods.removeFromParent = function() {
