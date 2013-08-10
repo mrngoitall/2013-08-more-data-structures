@@ -36,6 +36,26 @@ binarySearchTreeMethods.insert = function(value) {
     };
     binaryTreeCrawler(this);
   }
+  var binaryTreeDepthCrawler = function(node, mode) {
+    var depth = 1;
+    if (node.left !== null && node.right !== null) {
+      if (mode === 'max') {
+        depth = depth + Math.max(binaryTreeDepthCrawler(node.left,'max'),binaryTreeDepthCrawler(node.right,'max'));
+      } else depth = depth + Math.min(binaryTreeDepthCrawler(node.left),binaryTreeDepthCrawler(node.right));
+    } else if (node.right !== null) {
+      depth += binaryTreeDepthCrawler(node.right);
+    } else if (node.left !== null) {
+      depth += binaryTreeDepthCrawler(node.left);
+    }
+    return depth;
+  };
+  var maxDepth = binaryTreeDepthCrawler(this, 'max');
+  console.log('max: '+ maxDepth);
+  var minDepth = binaryTreeDepthCrawler(this, 'min');
+  console.log('min: '+ minDepth);
+  if (maxDepth > (minDepth*2)) {
+    this.rebalance();
+  }
 };
 
 binarySearchTreeMethods.contains = function(value) {
@@ -66,7 +86,7 @@ binarySearchTreeMethods.breadthFirstLog = function(callback) {
   var queue = [this];
   while(queue.length) {
  //   debugger;
-    node = queue.shift();
+    var node = queue.shift();
     callback(node.value);
     node.left && queue.push(node.left);
     node.right && queue.push(node.right);
