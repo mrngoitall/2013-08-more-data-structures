@@ -178688,4 +178688,11 @@ var wordlist = ['aa',
 'zymurgy',
 'zyzzyva',
 'zyzzyvas',
-'zzz']
+'zzz'];
+
+
+var myTree = makePrefixTree();
+
+for (var i = 0; i < wordlist.length; i++) {
+  myTree.addWord(wordlist[i]);
+}
