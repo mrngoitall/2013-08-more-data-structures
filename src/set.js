@@ -1,5 +1,5 @@
 var makeSet = function(){
-  var set = Object.create(setPrototype); // fix me
+  var set = Object.create(setPrototype);
   set._storage = {};
   return set;
 };
