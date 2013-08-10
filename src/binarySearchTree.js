@@ -36,6 +36,23 @@ binarySearchTreeMethods.insert = function(value) {
     };
     binaryTreeCrawler(this);
   }
+  var binaryTreeDepthCrawler = function(node, mode) {
+    var depth = 1;
+    if (node.left !== null && node.right !== null) {
+      if (mode === 'max') {
+        depth = depth + Math.max(binaryTreeDepthCrawler(node.left,'max'),binaryTreeDepthCrawler(node.right,'max'));
+      } else depth = depth + Math.min(binaryTreeDepthCrawler(node.left),binaryTreeDepthCrawler(node.right));
+    } else if (node.right !== null) {
+      depth += binaryTreeDepthCrawler(node.right);
+    } else if (node.left !== null) {
+      depth += binaryTreeDepthCrawler(node.left);
+    }
+    return depth;
+  };
+  var maxDepth = binaryTreeDepthCrawler(this, 'max');
+  console.log('max: '+ maxDepth);
+  var minDepth = binaryTreeDepthCrawler(this, 'min');
+  console.log('min: '+ minDepth);
 };
 
 binarySearchTreeMethods.contains = function(value) {
