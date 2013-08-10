@@ -178689,10 +178689,3 @@ var wordlist = ['aa',
 'zyzzyva',
 'zyzzyvas',
 'zzz'];
-
-
-var myTree = makePrefixTree();
-
-for (var i = 0; i < wordlist.length; i++) {
-  myTree.addWord(wordlist[i]);
-}
