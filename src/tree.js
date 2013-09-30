@@ -19,11 +19,15 @@ treeMethods.addChild = function(value){
   this.children.push(tempTree);
 };
 
-treeMethods.contains = function(value){
+/*treeMethods.contains = function(value){
   // Using reduce
   return _(this.children).reduce(function(childrenContainValue, child){
     return childrenContainValue || child.contains(value);
   }, this.value === value);
+};*/
+
+treeMethods.contains = function(value){
+  return this.value === value || _(this.children).some(this.contains, value);
 };
 
 treeMethods.removeFromParent = function() {
